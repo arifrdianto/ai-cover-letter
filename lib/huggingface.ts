@@ -8,7 +8,7 @@ export type JobDescription = {
 };
 
 export type CandidateProfile = {
-  name: string;
+  fullname: string;
   email: string;
   phone: string;
   skills: string[];
@@ -52,7 +52,7 @@ Job Details:
 - Key Requirements: ${jobDescription.requirements}
 
 Candidate Profile:
-- Name: ${candidateProfile.name}
+- Name: ${candidateProfile.fullname}
 - Email: ${candidateProfile.email}
 - Phone: ${candidateProfile.phone}
 - Education: ${candidateProfile.education

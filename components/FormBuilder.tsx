@@ -93,7 +93,7 @@ export default function FormBuilder({ onFinish }: FormBuilderProps) {
         body: JSON.stringify({
           jobDescription: data.jobDescription,
           candidateProfile: {
-            name: data.fullname,
+            fullname: data.fullname,
             email: data.email,
             phone: data.phone,
             skills: data.skills,
@@ -156,7 +156,7 @@ export default function FormBuilder({ onFinish }: FormBuilderProps) {
     <Form {...form}>
       <form
         onSubmit={handleOnSubmit}
-        className="flex flex-col gap-6 w-full h-[calc(100vh-19.5rem)]"
+        className="flex flex-col gap-6 w-full h-[calc(100vh-25.5rem)]"
       >
         <div className="flex flex-col gap-6 overflow-auto relative min-h-full">
           <div className="flex flex-col gap-6 overflow-visible relative px-1">
