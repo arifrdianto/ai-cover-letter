@@ -22,7 +22,10 @@ const InputTags = forwardRef<HTMLInputElement, InputTagsProps>(
 
     const addPendingDataPoint = () => {
       if (pendingDataPoint) {
-        const newDataPoints = new Set([...value, pendingDataPoint]);
+        const newDataPoints = new Set([
+          ...value,
+          ...pendingDataPoint.split(","),
+        ]);
         onChange(Array.from(newDataPoints));
         setPendingDataPoint("");
       }
