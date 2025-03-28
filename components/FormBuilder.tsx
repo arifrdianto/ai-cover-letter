@@ -12,6 +12,7 @@ import { Button } from "./ui/button";
 import { useStepForm } from "@/hooks/useStepForm";
 import { FormWizard } from "./form";
 import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 
 export type Result =
   | "loading"
@@ -67,15 +68,18 @@ export default function FormBuilder({ onFinish }: FormBuilderProps) {
     },
   });
 
-  if (session.data) {
-    async function getProfile() {
-      const profile = await fetch(`/api/me`);
-      const profileJson = await profile.json();
-      form.setValue("fullname", profileJson.name);
-      form.setValue("email", profileJson.email);
-    }
-    getProfile();
+  async function getProfile() {
+    const profile = await fetch(`/api/me`);
+    const profileJson = await profile.json();
+    form.setValue("fullname", profileJson.name);
+    form.setValue("email", profileJson.email);
   }
+
+  useEffect(() => {
+    if (session.data) {
+      getProfile();
+    }
+  }, [session.data]);
 
   const onSubmit = async (data: ApplicationFormValue) => {
     onFinish("loading");
@@ -135,6 +139,7 @@ export default function FormBuilder({ onFinish }: FormBuilderProps) {
 
     if (isLastStep) {
       form.handleSubmit(onSubmit)();
+
       return;
     }
 
@@ -151,9 +156,9 @@ export default function FormBuilder({ onFinish }: FormBuilderProps) {
     <Form {...form}>
       <form
         onSubmit={handleOnSubmit}
-        className="flex flex-col gap-6 h-[calc(100%-72px)] w-full"
+        className="flex flex-col gap-6 w-full h-[calc(100vh-19.5rem)]"
       >
-        <div className="flex min-h-0 flex-1 flex-col gap-6 overflow-auto relative">
+        <div className="flex flex-col gap-6 overflow-auto relative min-h-full">
           <div className="flex flex-col gap-6 overflow-visible relative px-1">
             <Content />
           </div>

@@ -5,7 +5,7 @@ import FormBuilder, { Result } from "./FormBuilder";
 import { Card, CardContent } from "./ui/card";
 import { Separator } from "./ui/separator";
 import Markdown from "react-markdown";
-import LinkedinConnect from "./LinkedinConnect";
+// import LinkedinConnect from "./LinkedinConnect";
 
 export default function Container() {
   const [generatedText, setGeneratedText] = useState<Result>(null);
@@ -13,7 +13,7 @@ export default function Container() {
   return (
     <div className="container mx-auto w-full max-w-[1280px]">
       <div className="flex-1 items-start mx-6 md:mx-4 md:grid md:grid-cols-[320px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[420px_minmax(0,1fr)] lg:gap-10">
-        <aside className="top-14 z-30 h-[calc(100vh-8rem)] w-full shrink-0 md:sticky py-6 md:py-0">
+        <aside className="top-14 z-30 h-[calc(100vh_-_8rem)] w-full shrink-0 md:sticky py-6 md:py-0">
           <div className="flex flex-col gap-6 h-full">
             <div className="flex flex-col">
               <h3 className="text-lg font-medium">
@@ -24,7 +24,7 @@ export default function Container() {
                 effortlessly—your journey to the perfect job starts here!
               </p>
             </div>
-            <LinkedinConnect />
+            {/* <LinkedinConnect /> */}
             <Separator />
             <FormBuilder onFinish={setGeneratedText} />
           </div>

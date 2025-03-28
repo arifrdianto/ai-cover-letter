@@ -20,7 +20,7 @@ const authOptions: NextAuthOptions = {
       clientSecret: process.env.LINKEDIN_CLIENT_SECRET!,
       authorization: {
         params: {
-          scope: "openid profile email",
+          scope: "openid profile email r_basicprofile",
         },
       },
       profile(profile) {
