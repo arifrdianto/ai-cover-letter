@@ -96,6 +96,7 @@ Desired Outcome:
 - Create compelling call-to-action
 
 Final Instructions:
+- Start with a strong opening statement "Dear Hiring Manager" and end with "Sincerely/Best Regards, [name]"
 - Craft a narrative that sells candidate's unique value
 - Transform professional history into a compelling story
 - Make every word count towards securing an interview

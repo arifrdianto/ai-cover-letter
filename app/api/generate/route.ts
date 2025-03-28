@@ -20,6 +20,8 @@ export async function POST(req: Request) {
       options
     );
 
+    console.log("Cover Letter", coverLetter);
+
     return Response.json({
       data: {
         ...candidateProfile,
