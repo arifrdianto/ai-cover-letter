@@ -10,6 +10,8 @@ import { Input } from "../ui/input";
 import { ApplicationFormValue } from "@/lib/schema";
 import { Separator } from "../ui/separator";
 import { Textarea } from "../ui/textarea";
+import { Lock } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 
 export default function JobDescription() {
   const form = useFormContext<ApplicationFormValue>();
@@ -80,6 +82,15 @@ export default function JobDescription() {
           </FormItem>
         )}
       />
+      <Separator />
+      <Alert>
+        <Lock className="h-4 w-4" />
+        <AlertTitle>Your Privacy is Safe!</AlertTitle>
+        <AlertDescription>
+          The data you submit will not be stored in a dedicated database, only
+          in your web browser. Secure, private, and fully in your control!
+        </AlertDescription>
+      </Alert>
     </>
   );
 }

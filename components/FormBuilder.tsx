@@ -11,6 +11,7 @@ import { Form } from "./ui/form";
 import { Button } from "./ui/button";
 import { useStepForm } from "@/hooks/useStepForm";
 import { FormWizard } from "./form";
+import { useSession } from "next-auth/react";
 
 export type Result =
   | "loading"
@@ -30,6 +31,8 @@ type FormBuilderProps = {
 };
 
 export default function FormBuilder({ onFinish }: FormBuilderProps) {
+  const session = useSession();
+
   const { currentStepIndex, isFirstStep, isLastStep, nextStep, previousStep } =
     useStepForm(schemaIndex.length);
 
@@ -63,6 +66,16 @@ export default function FormBuilder({ onFinish }: FormBuilderProps) {
       },
     },
   });
+
+  if (session.data) {
+    async function getProfile() {
+      const profile = await fetch(`/api/me`);
+      const profileJson = await profile.json();
+      form.setValue("fullname", profileJson.name);
+      form.setValue("email", profileJson.email);
+    }
+    getProfile();
+  }
 
   const onSubmit = async (data: ApplicationFormValue) => {
     onFinish("loading");
