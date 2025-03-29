@@ -49,9 +49,10 @@ class CoverLetterGenerator {
     if (typeof candidateProfile === "string") {
       return `
 Generate a compelling cover letter with the following context:
+
 Job Details:
 - Position: ${jobDescription.title} at ${jobDescription.company}
-- Key Requirements: ${jobDescription.requirements}
+- Requirements: ${jobDescription.requirements}
 
 Candidate Profile:
 - Resume: ${candidateProfile}
