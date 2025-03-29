@@ -156,9 +156,9 @@ export default function FormBuilder({ onFinish }: FormBuilderProps) {
     <Form {...form}>
       <form
         onSubmit={handleOnSubmit}
-        className="flex flex-col gap-6 w-full h-[calc(100vh-25.5rem)]"
+        className="flex flex-col gap-6 w-full md:h-[calc(100vh-25.5rem)]"
       >
-        <div className="flex flex-col gap-6 overflow-auto relative min-h-full">
+        <div className="flex flex-col gap-6 md:overflow-auto relative md:min-h-full">
           <div className="flex flex-col gap-6 overflow-visible relative px-1">
             <Content />
           </div>

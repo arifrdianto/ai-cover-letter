@@ -31,7 +31,7 @@ export default function Container() {
   return (
     <div className="container mx-auto w-full max-w-[1280px]">
       <div className="flex-1 items-start mx-6 md:mx-4 md:grid md:grid-cols-[320px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[420px_minmax(0,1fr)] lg:gap-10">
-        <aside className="top-14 z-30 h-[calc(100vh_-_8rem)] w-full shrink-0 md:sticky py-6 md:py-0">
+        <aside className="top-14 z-30 md:h-[calc(100vh_-_8rem)] w-full shrink-0 md:sticky py-6 md:py-0">
           <div className="flex flex-col gap-6 h-full">
             <div className="flex flex-col">
               <h3 className="text-lg font-medium">
