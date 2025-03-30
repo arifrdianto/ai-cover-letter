@@ -1,6 +1,6 @@
-import Education from "./Education";
-import Experience from "./Experience";
-import JobDescription from "./JobDescription";
-import Profile from "./Profile";
+import Education from "./education";
+import Experience from "./experience";
+import JobDescription from "./job-description";
+import Profile from "./profile";
 
 export const FormWizard = [Profile, Education, Experience, JobDescription];

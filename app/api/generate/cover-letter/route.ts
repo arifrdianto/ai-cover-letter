@@ -1,12 +1,12 @@
-import { CoverLetterGenerator } from "@/lib/huggingface";
+import TogetherAIClient from "@/lib/togetherai";
 import pdfParse from "pdf-parse";
+
+const togetherAIClient = new TogetherAIClient(
+  process.env.TOGETHER_API_KEY as string
+);
 
 export async function POST(request: Request) {
   try {
-    const coverLetterGenerator = new CoverLetterGenerator(
-      process.env.HUGGINGFACE_API_KEY!
-    );
-
     const formData = await request.formData();
     const resumeFile = formData.get("resume") as File;
     const jobTitle = formData.get("jobTitle") as string;
@@ -53,15 +53,33 @@ export async function POST(request: Request) {
     const pdfData = await pdfParse(buffer);
     const extractedResume = pdfData.text;
 
-    const coverLetter = await coverLetterGenerator.generateCoverLetterV2(
-      {
-        company: companyName,
-        title: jobTitle,
-        requirements: jobRequirements,
-      },
-      extractedResume,
-      {}
-    );
+    // const coverLetter = await coverLetterGenerator.generateCoverLetterV2(
+    //   {
+    //     company: companyName,
+    //     title: jobTitle,
+    //     requirements: jobRequirements,
+    //   },
+    //   extractedResume,
+    //   {}
+    // );
+
+    const userMessage = `
+Here is my CV:
+${extractedResume}
+
+I am applying for the position of ${jobTitle} at ${companyName}. Below is the job description:
+
+${jobRequirements}
+
+Please generate a tailored cover letter for this job.
+
+Ensure that the cover letter:
+- Includes my name, email, and phone number.
+- Is professional, concise, and well-structured.`;
+
+    const coverLetter = await togetherAIClient.generateCoverLetter({
+      userMessage,
+    });
 
     return Response.json({
       data: {

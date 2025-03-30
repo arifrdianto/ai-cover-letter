@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import FormBuilder, { Result } from "./FormBuilder";
+import FormBuilder, { Result } from "./form-builder";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import { Separator } from "./ui/separator";
 import Markdown from "react-markdown";
-import LinkedinConnect from "./LinkedinConnect";
+import LinkedinConnect from "./linkedin-connect";
 import { parseRawText } from "@/lib/utils";
 import { CopyButton } from "./ui/copy-button";
 
