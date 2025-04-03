@@ -34,6 +34,19 @@ const groupSchema = z.object({
 });
 
 const applicationSchema = profileSchema.merge(groupSchema);
+const applicationSchemaWithUpload = z.object({
+  resume: z
+    .instanceof(File)
+    .refine((file) => file.size < 5 * 1024 * 1024, {
+      message: "File size exceeds 5MB",
+    })
+    .refine((file) => file.type === "application/pdf", {
+      message: "File must be a PDF",
+    }),
+  jobTitle: z.string().nonempty("Title is required"),
+  company: z.string().nonempty("Company is required"),
+  requirements: z.string().nonempty("Requirements is required"),
+});
 
 const schemaIndex = [
   Object.keys(profileSchema.shape),
@@ -41,5 +54,8 @@ const schemaIndex = [
 ];
 
 export type ApplicationFormValue = z.infer<typeof applicationSchema>;
+export type ApplicationFormValueWithUpload = z.infer<
+  typeof applicationSchemaWithUpload
+>;
 
-export { applicationSchema, schemaIndex };
+export { applicationSchema, applicationSchemaWithUpload, schemaIndex };

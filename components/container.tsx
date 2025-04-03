@@ -6,8 +6,9 @@ import { Card, CardContent, CardHeader } from "./ui/card";
 import { Separator } from "./ui/separator";
 import Markdown from "react-markdown";
 import LinkedinConnect from "./linkedin-connect";
-import { parseRawText } from "@/lib/utils";
+import { parseCoverLetterContent, parseRawText } from "@/lib/utils";
 import { CopyButton } from "./ui/copy-button";
+import FormUploadResume from "./form-upload-resume";
 
 export default function Container() {
   const [generatedText, setGeneratedText] = useState<Result>(null);
@@ -42,9 +43,18 @@ export default function Container() {
                 effortlessly—your journey to the perfect job starts here!
               </p>
             </div>
-            <LinkedinConnect />
-            <Separator />
-            <FormBuilder onFinish={handleClickConfirm} />
+            {process.env.NEXT_PUBLIC_FLAG_V2 ? (
+              <div className="flex flex-col gap-6">
+                <Separator />
+                <FormUploadResume onFinish={handleClickConfirm} />
+              </div>
+            ) : (
+              <div>
+                <LinkedinConnect />
+                <Separator />
+                <FormBuilder onFinish={handleClickConfirm} />
+              </div>
+            )}
           </div>
         </aside>
         <main className="relative py-0 md:py-8 my-12 md:my-0">
@@ -84,23 +94,37 @@ export default function Container() {
                   ref={textRef}
                   className="flex flex-col text-primary text-sm min-h-[calc(100vh-11.25rem)]"
                 >
-                  <p className="font-bold">{generatedText.data.fullname}</p>
-                  <p className="mb-6">
-                    {generatedText.data.email} | {generatedText.data.phone}
-                  </p>
-                  <p>
-                    Dear Hiring Manager{" "}
-                    <strong>{generatedText.data.jobDescription.company}</strong>
-                  </p>
-                  <div className="flex flex-col gap-6 mt-6">
-                    {parseRawText(
-                      generatedText.data?.generatedText,
-                      generatedText.data?.fullname
-                    ).map((paragraph, index) => (
-                      <Markdown key={index}>{paragraph}</Markdown>
-                    ))}
-                  </div>
-                  <p className="font-bold">{generatedText.data.fullname}</p>
+                  {process.env.NEXT_PUBLIC_FLAG_V2 ? (
+                    <div className="prose max-w-none text-sm">
+                      {parseCoverLetterContent(
+                        generatedText.data.generatedText
+                      ).map((paragraph, index) => (
+                        <Markdown key={index}>{paragraph}</Markdown>
+                      ))}
+                    </div>
+                  ) : (
+                    <>
+                      <p className="font-bold">{generatedText.data.fullname}</p>
+                      <p className="mb-6">
+                        {generatedText.data.email} | {generatedText.data.phone}
+                      </p>
+                      <p>
+                        Dear Hiring Manager{" "}
+                        <strong>
+                          {generatedText.data.jobDescription.company}
+                        </strong>
+                      </p>
+                      <div className="flex flex-col gap-6 mt-6">
+                        {parseRawText(
+                          generatedText.data?.generatedText,
+                          generatedText.data?.fullname
+                        ).map((paragraph, index) => (
+                          <Markdown key={index}>{paragraph}</Markdown>
+                        ))}
+                      </div>
+                      <p className="font-bold">{generatedText.data.fullname}</p>
+                    </>
+                  )}
                 </div>
               )}
               {generatedText === null && (
